@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="qyt.itheima.mapper.CustomerDao">
+	
+	<select id="queryCustomer" resultType="qyt.itheima.pojo.Customer" parameterType="qyt.itheima.pojo.QueryVo" >
+		select * from customer	
+		<where>
+			<if test="custName!=null and custName!='' ">
+				cust_name like  "%"#{custName}"%"
+			</if>
+			<if test="custSource!=null and custSource!='' ">
+				and cust_source = #{custSource}
+			</if>
+			<if test="custIndustry!=null and custIndustry!='' ">
+				and  cust_industry="%"#{custIndustry}"%"
+			</if>
+			<if test="custLeve!=null and custLeve!='' ">
+				cust_leve="%"#{custLeve}"%"
+			</if>
+		</where>
+		limit	#{start},#{pageRows}
+	</select>
+	
+	
+	<select id="queryCustomerRows" resultType="Integer" parameterType="qyt.itheima.pojo.QueryVo" >
+		select count(1) from customer	
+		<where>
+			<if test="custName!=null and custName!='' ">
+				cust_name like  "%"#{custName}"%"
+			</if>
+			<if test="custSource!=null and custSource!='' ">
+				and cust_source = #{custSource}
+			</if>
+			<if test="custIndustry!=null and custIndustry!='' ">
+				and  cust_industry="%"#{custIndustry}"%"
+			</if>
+			<if test="custLeve!=null and custLeve!='' ">
+				cust_leve="%"#{custLeve}"%"
+			</if>
+		</where>
+	</select>
+</mapper>
